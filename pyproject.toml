@@ -1,0 +1,10 @@
+[project]
+name = "tiny-gpt-code"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.3",
+    "tokenizers>=0.23.3",
+    "torch>=2.14.1",
+]
