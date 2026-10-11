@@ -9,14 +9,3 @@ uv run plot.py
 uv run sample.py
 ```
 
-`sections/` 里是每一节结束时的代码：
-
-- `sections/10.1/`：`tiny_gpt.py`、`prepare.py`
-- `sections/10.2/`：`prepare.py`、`model.py`
-- `sections/10.3/`：`prepare.py`、`model.py`、`train.py`
-- `sections/10.4/`：`prepare.py`、`model.py`、`train.py`
-- `sections/10.5/`：`prepare.py`、`model.py`、`train.py`
-- `sections/10.6/`：`prepare.py`、`model.py`、`train.py`
-- `sections/10.7/`：`prepare.py`、`model.py`、`train.py`
-- `sections/10.8/`：`prepare.py`、`model.py`、`train.py`、`plot.py`、`sample.py`
-

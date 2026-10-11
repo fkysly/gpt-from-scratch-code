@@ -6,11 +6,3 @@
 uv run prepare.py     # 下载 TinyStories 验证集、训练分词器、生成 train.bin / val.bin
 ```
 
-`sections/` 里是每一节结束时的代码：
-
-- `sections/9.1/`：`tiny_gpt.py`、`prepare.py`
-- `sections/9.2/`：`tiny_gpt.py`、`prepare.py`
-- `sections/9.3/`：`tiny_gpt.py`、`prepare.py`
-- `sections/9.4/`：`tiny_gpt.py`、`prepare.py`
-- `sections/9.5/`：`tiny_gpt.py`、`prepare.py`
-

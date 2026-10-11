@@ -6,13 +6,3 @@
 uv run tiny_gpt.py
 ```
 
-`sections/` 里是每一节结束时的代码：
-
-- `sections/2.1/`：`tiny_gpt.py`
-- `sections/2.2/`：`tiny_gpt.py`
-- `sections/2.3/`：`tiny_gpt.py`
-- `sections/2.4/`：`tiny_gpt.py`
-- `sections/2.5/`：`tiny_gpt.py`
-- `sections/2.6/`：`tiny_gpt.py`
-- `sections/2.7/`：`tiny_gpt.py`
-

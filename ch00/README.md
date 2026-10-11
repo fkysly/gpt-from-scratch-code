@@ -6,10 +6,3 @@
 uv run check_env.py
 ```
 
-`sections/` 里是每一节结束时的代码：
-
-- `sections/0.3/`：`check_env.py`
-- `sections/0.4/`：`check_env.py`
-- `sections/0.5/`：`check_env.py`
-- `sections/0.6/`：`check_env.py`
-
