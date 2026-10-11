@@ -15,6 +15,10 @@ uv run --project .. tiny_gpt.py
 第 0–9 章在任何电脑的 CPU 上都能运行；第 10–12 章需要一块 NVIDIA GPU（自己的显卡或租用的云 GPU）。
 数据文件（poems.txt、TinyStories、*.bin、ckpt.pt 等）不在仓库里，由各章的脚本下载或生成。
 
+## 可选：AMD GPU（ROCm）
+
+第 10–12 章的代码不用修改也能在 AMD GPU 上运行（ROCm 版 PyTorch 下 `torch.cuda.is_available()` 为 True，`device="cuda"` 照常可用）。以 AMD Developer Cloud 的 PyTorch 镜像为例：先 `docker exec -it rocm bash` 进入容器，`pip install tokenizers`，然后用 `python prepare.py`、`python train.py` 等代替 `uv run`。**不要在那里运行 `uv sync`**：`uv.lock` 锁定的是 PyPI 上的（NVIDIA 版）torch，会替换掉镜像里的 ROCm 版本，GPU 很可能就用不上了。
+
 ## 目录
 
 | 目录 | 章节 | 文件 |
