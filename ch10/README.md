@@ -18,6 +18,5 @@ uv run sample.py
 - `sections/10.5/`：`prepare.py`、`model.py`、`train.py`
 - `sections/10.6/`：`prepare.py`、`model.py`、`train.py`
 - `sections/10.7/`：`prepare.py`、`model.py`、`train.py`
-- `sections/10.8/`：`prepare.py`、`model.py`、`train.py`、`plot.py`
-- `sections/10.9/`：`prepare.py`、`model.py`、`train.py`、`plot.py`、`sample.py`
+- `sections/10.8/`：`prepare.py`、`model.py`、`train.py`、`plot.py`、`sample.py`
 

@@ -19,17 +19,12 @@ def decode(ids):
 
 data = torch.tensor(encode(text))
 block_size = 8
-batch_size = 4
+i = torch.randint(len(data) - block_size, (1,)).item()
+x = data[i:i + block_size]
+y = data[i + 1:i + block_size + 1]
 
-
-def get_batch():
-    ix = torch.randint(len(data) - block_size, (batch_size,))
-    x = torch.stack([data[i:i + block_size] for i in ix])
-    y = torch.stack([data[i + 1:i + block_size + 1] for i in ix])
-    return x, y
-
-
-x, y = get_batch()
-print(x.shape, y.shape)
-print(decode(x[0].tolist()))
-print(decode(y[0].tolist()))
+print("起点：", i)
+for t in range(block_size):
+    context = x[:t + 1]
+    target = y[t]
+    print(decode(context.tolist()), "->", itos[target.item()])

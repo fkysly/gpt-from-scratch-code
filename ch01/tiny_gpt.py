@@ -13,10 +13,6 @@ def decode(ids):
     return "".join([itos[i] for i in ids])
 
 
-data = encode(text)
-x = data[:-1]
-y = data[1:]
-
-for i in range(len(x)):
-    if itos[x[i]] == "月":
-        print("月 ->", itos[y[i]])
+print("词表大小：", len(chars))
+print(decode([12, 14]))
+print(decode(encode(text)))

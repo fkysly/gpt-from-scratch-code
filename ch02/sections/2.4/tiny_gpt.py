@@ -1,7 +1,5 @@
 import torch
 
-torch.manual_seed(1337)
-
 text = "床前明月光，疑是地上霜。举头望明月，低头思故乡。"
 chars = sorted(set(text))
 
@@ -19,12 +17,10 @@ def decode(ids):
 
 data = torch.tensor(encode(text))
 block_size = 8
-batch_size = 4
-ix = torch.randint(len(data) - block_size, (batch_size,))
-x = torch.stack([data[i:i + block_size] for i in ix])
-y = torch.stack([data[i + 1:i + block_size + 1] for i in ix])
+x = data[0:block_size]
+y = data[1:block_size + 1]
 
-print(ix)
-print(x.shape)
-print(x)
-print(y)
+for t in range(block_size):
+    context = x[:t + 1]
+    target = y[t]
+    print(decode(context.tolist()), "->", itos[target.item()])

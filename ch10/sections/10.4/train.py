@@ -12,6 +12,7 @@ eval_iters = 50
 learning_rate = 1e-3
 min_lr = 1e-4
 warmup_steps = 200
+grad_clip = 1.0
 if torch.cuda.is_available():
     device = "cuda"
 elif torch.backends.mps.is_available():
@@ -73,4 +74,5 @@ for step in range(max_steps):
     logits, loss = model(x, y)
     optimizer.zero_grad()
     loss.backward()
+    torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
     optimizer.step()

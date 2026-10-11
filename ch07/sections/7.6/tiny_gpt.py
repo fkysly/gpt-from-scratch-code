@@ -86,12 +86,10 @@ class Block(nn.Module):
         super().__init__()
         self.sa = MultiHeadAttention(n_head, n_embd // n_head)
         self.ffwd = FeedForward()
-        self.ln1 = nn.LayerNorm(n_embd)
-        self.ln2 = nn.LayerNorm(n_embd)
 
     def forward(self, x):
-        x = x + self.sa(self.ln1(x))
-        x = x + self.ffwd(self.ln2(x))
+        x = x + self.sa(x)
+        x = x + self.ffwd(x)
         return x
 
 
@@ -101,7 +99,6 @@ class TinyGPT(nn.Module):
         self.token_embedding = nn.Embedding(vocab_size, n_embd)
         self.position_embedding = nn.Embedding(block_size, n_embd)
         self.blocks = nn.Sequential(*[Block() for _ in range(n_layer)])
-        self.ln_f = nn.LayerNorm(n_embd)
         self.lm_head = nn.Linear(n_embd, vocab_size)
 
     def forward(self, idx, targets=None):
@@ -110,7 +107,6 @@ class TinyGPT(nn.Module):
         pos = self.position_embedding(torch.arange(T))
         x = tok + pos
         x = self.blocks(x)
-        x = self.ln_f(x)
         logits = self.lm_head(x)
         if targets is None:
             return logits, None
@@ -142,5 +138,6 @@ for step in range(max_steps):
     if (step + 1) % 300 == 0:
         print(step + 1, round(sum(losses[-100:]) / 100, 3))
 
+print("词表大小：", vocab_size)
 idx = torch.tensor([[stoi["月"]]])
 print(decode(model.generate(idx, max_new_tokens=60)[0].tolist()))

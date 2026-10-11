@@ -27,7 +27,6 @@ batch_size = 32
 learning_rate = 3e-3
 max_steps = 1500
 n_embd = 64
-n_head = 4
 
 
 def get_batch():
@@ -56,21 +55,12 @@ class Head(nn.Module):
         return wei @ v
 
 
-class MultiHeadAttention(nn.Module):
-    def __init__(self, num_heads, head_size):
-        super().__init__()
-        self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
-
-    def forward(self, x):
-        return torch.cat([h(x) for h in self.heads], dim=-1)
-
-
 class TinyGPT(nn.Module):
     def __init__(self):
         super().__init__()
         self.token_embedding = nn.Embedding(vocab_size, n_embd)
         self.position_embedding = nn.Embedding(block_size, n_embd)
-        self.sa_head = MultiHeadAttention(n_head, n_embd // n_head)
+        self.sa_head = Head(n_embd)
         self.lm_head = nn.Linear(n_embd, vocab_size)
 
     def forward(self, idx, targets=None):

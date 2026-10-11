@@ -1,5 +1,3 @@
-import torch
-
 text = "床前明月光，疑是地上霜。举头望明月，低头思故乡。"
 chars = sorted(set(text))
 
@@ -15,12 +13,10 @@ def decode(ids):
     return "".join([itos[i] for i in ids])
 
 
-data = torch.tensor(encode(text))
-block_size = 8
-x = data[0:block_size]
-y = data[1:block_size + 1]
+data = encode(text)
+x = data[:-1]
+y = data[1:]
 
-for t in range(block_size):
-    context = x[:t + 1]
-    target = y[t]
-    print(decode(context.tolist()), "->", itos[target.item()])
+for i in range(len(x)):
+    if itos[x[i]] == "月":
+        print("月 ->", itos[y[i]])

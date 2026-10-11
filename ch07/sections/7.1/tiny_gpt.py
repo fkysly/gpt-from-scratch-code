@@ -4,8 +4,7 @@ from torch.nn import functional as F
 
 torch.manual_seed(1337)
 
-with open("poems.txt", encoding="utf-8") as f:
-    text = f.read()
+text = "床前明月光，疑是地上霜。举头望明月，低头思故乡。"
 chars = sorted(set(text))
 vocab_size = len(chars)
 
@@ -22,11 +21,11 @@ def decode(ids):
 
 
 data = torch.tensor(encode(text))
-block_size = 32
-batch_size = 32
-learning_rate = 3e-3
-max_steps = 1500
-n_embd = 64
+block_size = 8
+batch_size = 4
+learning_rate = 1e-2
+max_steps = 1000
+n_embd = 16
 
 
 def get_batch():
@@ -89,17 +88,16 @@ model = TinyGPT()
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-losses = []
 for step in range(max_steps):
     x, y = get_batch()
     logits, loss = model(x, y)
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
-    losses.append(loss.item())
-    if (step + 1) % 300 == 0:
-        print(step + 1, round(sum(losses[-100:]) / 100, 3))
+    if step % 100 == 0:
+        print(step, loss.item())
 
-print("词表大小：", vocab_size)
-idx = torch.tensor([[stoi["月"]]])
-print(decode(model.generate(idx, max_new_tokens=60)[0].tolist()))
+idx = torch.tensor([[stoi["床"]]])
+for _ in range(3):
+    out = model.generate(idx, max_new_tokens=30)
+    print(decode(out[0].tolist()))

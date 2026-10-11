@@ -16,5 +16,4 @@ uv run tiny_gpt.py
 - `sections/1.6/`：`tiny_gpt.py`
 - `sections/1.7/`：`tiny_gpt.py`
 - `sections/1.8/`：`tiny_gpt.py`
-- `sections/1.9/`：`tiny_gpt.py`
 

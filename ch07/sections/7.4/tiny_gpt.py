@@ -28,7 +28,6 @@ learning_rate = 3e-3
 max_steps = 1500
 n_embd = 64
 n_head = 4
-n_layer = 4
 
 
 def get_batch():
@@ -79,24 +78,13 @@ class FeedForward(nn.Module):
         return self.net(x)
 
 
-class Block(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.sa = MultiHeadAttention(n_head, n_embd // n_head)
-        self.ffwd = FeedForward()
-
-    def forward(self, x):
-        x = self.sa(x)
-        x = self.ffwd(x)
-        return x
-
-
 class TinyGPT(nn.Module):
     def __init__(self):
         super().__init__()
         self.token_embedding = nn.Embedding(vocab_size, n_embd)
         self.position_embedding = nn.Embedding(block_size, n_embd)
-        self.blocks = nn.Sequential(*[Block() for _ in range(n_layer)])
+        self.sa_head = MultiHeadAttention(n_head, n_embd // n_head)
+        self.ffwd = FeedForward()
         self.lm_head = nn.Linear(n_embd, vocab_size)
 
     def forward(self, idx, targets=None):
@@ -104,7 +92,8 @@ class TinyGPT(nn.Module):
         tok = self.token_embedding(idx)
         pos = self.position_embedding(torch.arange(T))
         x = tok + pos
-        x = self.blocks(x)
+        x = self.sa_head(x)
+        x = self.ffwd(x)
         logits = self.lm_head(x)
         if targets is None:
             return logits, None

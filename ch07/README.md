@@ -16,4 +16,5 @@ uv run tiny_gpt.py
 - `sections/7.5/`：`tiny_gpt.py`、`get_poems.py`
 - `sections/7.6/`：`tiny_gpt.py`、`get_poems.py`
 - `sections/7.7/`：`tiny_gpt.py`、`get_poems.py`
+- `sections/7.8/`：`tiny_gpt.py`、`get_poems.py`
 

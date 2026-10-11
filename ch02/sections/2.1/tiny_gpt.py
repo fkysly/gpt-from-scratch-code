@@ -14,11 +14,8 @@ def decode(ids):
 
 
 data = encode(text)
-block_size = 8
-x = data[0:block_size]
-y = data[1:block_size + 1]
+x = data[:-1]
+y = data[1:]
 
-for t in range(block_size):
-    context = x[:t + 1]
-    target = y[t]
-    print(decode(context), "->", itos[target])
+for i in range(5):
+    print(itos[x[i]], "->", itos[y[i]])

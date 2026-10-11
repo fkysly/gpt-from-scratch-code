@@ -10,7 +10,7 @@ with open("log.csv") as f:
         val.append(float(row["val"]))
 
 plt.plot(steps, train, label="train")
-plt.plot(steps, val, label="val")
+plt.plot(steps, val, label="val", linestyle="--")
 plt.xlabel("step")
 plt.ylabel("loss")
 plt.ylim(min(train + val) - 0.2, 4)

@@ -65,26 +65,12 @@ class MultiHeadAttention(nn.Module):
         return torch.cat([h(x) for h in self.heads], dim=-1)
 
 
-class FeedForward(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(n_embd, 4 * n_embd),
-            nn.ReLU(),
-            nn.Linear(4 * n_embd, n_embd),
-        )
-
-    def forward(self, x):
-        return self.net(x)
-
-
 class TinyGPT(nn.Module):
     def __init__(self):
         super().__init__()
         self.token_embedding = nn.Embedding(vocab_size, n_embd)
         self.position_embedding = nn.Embedding(block_size, n_embd)
         self.sa_head = MultiHeadAttention(n_head, n_embd // n_head)
-        self.ffwd = FeedForward()
         self.lm_head = nn.Linear(n_embd, vocab_size)
 
     def forward(self, idx, targets=None):
@@ -93,7 +79,6 @@ class TinyGPT(nn.Module):
         pos = self.position_embedding(torch.arange(T))
         x = tok + pos
         x = self.sa_head(x)
-        x = self.ffwd(x)
         logits = self.lm_head(x)
         if targets is None:
             return logits, None

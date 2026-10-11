@@ -13,11 +13,6 @@ def decode(ids):
     return "".join([itos[i] for i in ids])
 
 
-data = encode(text)
-x = data[:-1]
-y = data[1:]
-
 print("词表大小：", len(chars))
-print("训练样本数：", len(x))
-for i in range(5):
-    print(itos[x[i]], "->", itos[y[i]])
+print(decode([12, 14]))
+print(decode(encode(text)))

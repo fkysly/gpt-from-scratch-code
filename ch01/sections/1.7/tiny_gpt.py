@@ -9,13 +9,4 @@ def encode(s):
     return [stoi[c] for c in s]
 
 
-def decode(ids):
-    return "".join([itos[i] for i in ids])
-
-
-data = encode(text)
-x = data[:-1]
-y = data[1:]
-
-for i in range(5):
-    print(itos[x[i]], "->", itos[y[i]])
+print(encode(text))
